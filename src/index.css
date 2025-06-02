@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --kiwi-light: #a5caa9;
+  --kiwi: #8bc34a;
+  --kiwi-dark: #2b2926;
+  --dark-bg: #1f2937;
+  --dark-card: #374151;
+  --dark-text: #ffffff;
+  --dark-text-secondary: #e5e7eb;
+  --dark-border: #4b5563;
+  --light-bg: #ffffff;
+  --light-card: #f9fafb;
+  --light-text: #1f2937;
+  --light-text-secondary: #4b5563;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  @apply text-light-text bg-light-bg;
+}
+
+.hero-parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@layer components {
+  .btn {
+    @apply relative bg-kiwi text-white font-semibold py-3 px-6 rounded-md transition-all duration-300 
+           hover:scale-105 hover:shadow-lg hover:shadow-kiwi/40 
+           active:scale-95
+           before:absolute before:inset-0 before:rounded-md before:bg-white/20 before:scale-0 before:opacity-0
+           hover:before:scale-100 hover:before:opacity-100 before:transition-all before:duration-300
+           overflow-hidden;
+  }
+
+  .section-title {
+    @apply relative text-3xl md:text-4xl lg:text-5xl font-bold text-light-text mb-6
+           after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2
+           after:w-24 after:h-1 after:bg-gradient-to-r after:from-kiwi-light after:to-kiwi;
+  }
+  
+  .card {
+    @apply relative bg-light-card rounded-lg shadow-md overflow-hidden transition-all duration-300
+           hover:shadow-xl hover:shadow-kiwi/20 hover:-translate-y-1 border border-gray-200;
+  }
+
+  .card-hover {
+    @apply hover:scale-105 hover:shadow-xl hover:shadow-kiwi/30;
+  }
+  
+  .package-card {
+    @apply relative bg-gradient-to-br from-light-card to-white rounded-lg p-6 
+           transition-all duration-300 hover:scale-105 
+           before:absolute before:inset-0 before:rounded-lg before:bg-kiwi/10 
+           before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300
+           shadow-lg shadow-kiwi/10 hover:shadow-xl hover:shadow-kiwi/30
+           border border-gray-200;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 
+           focus:outline-none focus:ring-2 focus:ring-kiwi/50 focus:border-kiwi
+           transition-all duration-200 bg-white backdrop-blur-sm
+           text-light-text placeholder-light-text-secondary;
+  }
+
+  .nav-link {
+    @apply relative transition-all duration-300 text-light-text hover:text-kiwi
+           after:content-[''] after:absolute after:-bottom-1 after:left-0 
+           after:w-0 after:h-0.5 after:bg-kiwi
+           after:transition-all after:duration-300
+           hover:after:w-full;
+  }
+
+  .dark-section {
+    @apply bg-dark-bg text-dark-text;
+  }
+
+  .dark-card {
+    @apply bg-dark-card text-dark-text border-dark-border;
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glass-effect {
+  @apply backdrop-blur-md bg-white/90 shadow-lg border border-gray-200;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-kiwi to-kiwi-dark bg-clip-text text-transparent;
+}
+
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-kiwi/30;
+}
+
+.icon-container {
+  @apply relative p-3 rounded-full bg-gradient-to-br from-kiwi to-kiwi-light
+         text-light-text font-semibold transition-all duration-300
+         hover:scale-110 hover:shadow-lg hover:shadow-kiwi/40
+         before:absolute before:inset-0 before:rounded-full
+         before:bg-white/20 before:scale-0 before:opacity-0
+         hover:before:scale-100 hover:before:opacity-100
+         before:transition-all before:duration-300;
+}
