@@ -77,14 +77,6 @@ const Footer: React.FC = () => {
             <p className="text-white/50 text-sm">
               © {new Date().getFullYear()} Kiwi Reels. Minden jog fenntartva.
             </p>
-            {/* Scroll to Top Button */}
-            <button
-              onClick={scrollToTop}
-              className="icon-container bg-kiwi/20 hover:bg-kiwi/30"
-              aria-label="Vissza a tetejére"
-            >
-              <ArrowUp size={20} />
-            </button>
           </div>
         </div>
       </div>

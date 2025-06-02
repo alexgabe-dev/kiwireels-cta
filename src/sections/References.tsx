@@ -1,53 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimatedElement from '../components/AnimatedElement';
 import ReferenceCard from '../components/ReferenceCard';
+import references from '../data/references';
 
-const references = [
-  {
-    title: 'Social media kampány – FashionBrand X',
-    description: 'Egy hónap alatt 50 ezer megtekintés, 3 ezer megosztás.',
-    imageUrl: 'https://images.pexels.com/photos/1040157/pexels-photo-1040157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    videoUrl: '',
-    fullDescription: 'Facebook és Instagram story videók létrehozása a FashionBrand X-nek, dinamikus vágásokkal és színes grafikákkal. A kampány 20-30%-kal növelte a követők számát, és 15%-kal emelte a webshop forgalmát.'
-  },
-  {
-    title: 'Imázsfilm – Tech Startup',
-    description: 'Professzionális bemutatkozó videó az új applikációhoz.',
-    imageUrl: 'https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    videoUrl: '',
-    fullDescription: 'Egy teljes, 3 perces imázsfilm készítése a startup új mobil alkalmazásának bemutatásához. A videót a vállalkozás a főoldalán, valamint befektetői prezentációk során használta fel nagy sikerrel.'
-  },
-  {
-    title: 'Termékfotózás – Gourmet Bistro',
-    description: '45 professzionális étel- és italkép a menühöz és közösségi médiához.',
-    imageUrl: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    videoUrl: '',
-    fullDescription: 'Teljes étel- és italsort fotóztunk professzionális körülmények között a Gourmet Bistro számára. A képeket az étterem a menükártyákon és Instagram-oldalán is felhasználta, jelentősen növelve az online elérést és a foglalások számát.'
-  },
-  {
-    title: 'Rendezvényvideó – Nemzetközi Konferencia',
-    description: 'Átfogó dokumentáció az 500 fős szakmai eseményről.',
-    imageUrl: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    videoUrl: '',
-    fullDescription: 'Háromnapos nemzetközi konferencia teljes dokumentálása több kamerával, interjúkkal és előadás-felvételekkel. Az elkészült anyagokat a szervezők promóciós célokra, valamint a résztvevők tájékoztatására használták fel.'
-  },
-  {
-    title: 'TikTok sorozat – Fitness Brand',
-    description: '12 rövid oktatóvideó, 1.2 millió össznézettséggel.',
-    imageUrl: 'https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    videoUrl: '',
-    fullDescription: 'Rövid, 30-45 másodperces edzésvideók készítése egy fitnesz márkának, melyek a TikTok és Instagram platformokon értek el kiemelkedő nézettséget. A kampány során a márka követőinek száma 45%-kal növekedett.'
-  },
-  {
-    title: 'Esküvői fotózás – Luxury Wedding',
-    description: 'Exkluzív, teljes napos dokumentáció a nagy napról.',
-    imageUrl: 'https://images.pexels.com/photos/1427741/pexels-photo-1427741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    videoUrl: '',
-    fullDescription: 'Exkluzív esküvői fotózás teljes dokumentációja egy luxus helyszínen. A szolgáltatás magában foglalta az előkészületeket, a ceremóniát és a fogadást is. A páros számára 350+ professzionálisan szerkesztett képet adtunk át.'
+function getLoadCount() {
+  if (typeof window !== 'undefined') {
+    return window.innerWidth >= 1024 ? 6 : 4;
   }
-];
+  return 4;
+}
 
 const References: React.FC = () => {
+  const [visibleCount, setVisibleCount] = useState(getLoadCount());
+  const [loadCount, setLoadCount] = useState(getLoadCount());
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const count = getLoadCount();
+      setLoadCount(count);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (visibleCount < loadCount) {
+      setVisibleCount(loadCount);
+    }
+  }, [loadCount]);
+
+  const handleLoadMore = () => {
+    setLoading(true);
+    const nextCount = Math.min(visibleCount + loadCount, references.length);
+    setVisibleCount(nextCount);
+    setTimeout(() => setLoading(false), 200);
+  };
+
   return (
     <section id="references" className="relative py-32 bg-gradient-to-b from-gray-50 to-white">
       <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-gray-50 to-transparent"></div>
@@ -64,8 +53,8 @@ const References: React.FC = () => {
           </p>
         </AnimatedElement>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {references.map((reference, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          {references.slice(0, visibleCount).map((reference, index) => (
             <ReferenceCard
               key={index}
               title={reference.title}
@@ -77,6 +66,17 @@ const References: React.FC = () => {
             />
           ))}
         </div>
+        {visibleCount < references.length && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={handleLoadMore}
+              className="btn bg-kiwi text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-kiwi-dark transition-all duration-300"
+              disabled={loading}
+            >
+              További referenciáink
+            </button>
+          </div>
+        )}
       </div>
       
       <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>

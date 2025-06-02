@@ -8,7 +8,7 @@ const ContactForm: React.FC = () => {
       {/* Mobile View */}
       <div className="lg:hidden space-y-8">
         <div className="text-center space-y-4">
-          <h2 className="text-3xl font-bold text-white">Kapcsolat</h2>
+          <h2 className="section-title text-3xl font-bold text-white">Kapcsolat</h2>
           <h3 className="text-xl text-white/80">Vedd fel velünk a kapcsolatot</h3>
           <p className="text-white/70">
             Ha bármilyen kérdésed van, vagy szeretnél egyedi ajánlatot, töltsd ki az alábbi űrlapot, 
@@ -56,7 +56,7 @@ const ContactForm: React.FC = () => {
           </button>
         </form>
 
-        <div className="bg-white rounded-lg p-6 shadow-lg">
+        <div className="bg-white rounded-lg p-6 shadow-lg border-2 border-kiwi">
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-kiwi-dark">Elérhetőségek</h3>
             <div className="space-y-4">
@@ -81,14 +81,14 @@ const ContactForm: React.FC = () => {
       <div className="hidden lg:grid grid-cols-2 gap-12">
         <div className="space-y-8">
           <div>
-            <h2 className="text-4xl font-bold text-white mb-4">Kapcsolat</h2>
+            <h2 className="section-title text-4xl font-bold text-white mb-4">Kapcsolat</h2>
             <p className="text-white/70 text-lg">
               Ha bármilyen kérdésed van, vagy szeretnél egyedi ajánlatot, töltsd ki az alábbi űrlapot, 
               és mi 24 órán belül jelentkezünk.
             </p>
           </div>
 
-          <div className="bg-white rounded-lg p-8 shadow-lg">
+          <div className="bg-white rounded-lg p-8 shadow-lg border-2 border-kiwi">
             <div className="space-y-6">
               <h3 className="text-2xl font-semibold text-kiwi-dark">Elérhetőségek</h3>
               <div className="space-y-4">

@@ -6,6 +6,7 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [showCtaAnimation, setShowCtaAnimation] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +25,17 @@ const Navbar: React.FC = () => {
       
       if (currentSection) {
         setActiveSection(currentSection);
+      }
+
+      // Check if we're near the contact section for CTA animation
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        if (rect.top <= 200 && rect.top >= -100) {
+          setShowCtaAnimation(true);
+          // Reset animation after 2 seconds
+          setTimeout(() => setShowCtaAnimation(false), 2000);
+        }
       }
     };
     
@@ -111,7 +123,8 @@ const Navbar: React.FC = () => {
                            active:scale-95
                            before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:scale-0 before:opacity-0
                            hover:before:scale-100 hover:before:opacity-100 before:transition-all before:duration-300
-                           overflow-hidden`}
+                           overflow-hidden
+                           ${showCtaAnimation ? 'animate-cta-pulse' : ''}`}
               >
                 Ajánlatkérés
               </a>
@@ -165,12 +178,13 @@ const Navbar: React.FC = () => {
                 <AnimatedElement delay={500}>
                   <button
                     onClick={handleContactClick}
-                    className="relative bg-kiwi text-white font-semibold py-3 px-6 w-full text-center block rounded-full transition-all duration-300 
+                    className={`relative bg-kiwi text-white font-semibold py-3 px-6 w-full text-center block rounded-full transition-all duration-300 
                              hover:scale-105 hover:shadow-lg hover:shadow-kiwi/40 
                              active:scale-95
                              before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:scale-0 before:opacity-0
                              hover:before:scale-100 hover:before:opacity-100 before:transition-all before:duration-300
-                             overflow-hidden"
+                             overflow-hidden
+                             ${showCtaAnimation ? 'animate-cta-pulse' : ''}`}
                   >
                     Ajánlatkérés
                   </button>

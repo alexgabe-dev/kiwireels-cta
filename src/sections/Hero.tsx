@@ -20,8 +20,12 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4 z-20 text-center">
         <AnimatedElement>
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Emeld magasabb szintre a
-            <span className="bg-gradient-to-r from-kiwi to-kiwi-light bg-clip-text text-transparent"> márkád!</span>
+            Emeld magasabb szintre a&nbsp;
+            <br className="hidden md:block" />
+            <span className="brand-text text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-kiwi to-kiwi-light bg-clip-text text-transparent relative inline-block md:mt-6">
+              márkád!
+              <span className="brand-underline"></span>
+            </span>
           </h1>
         </AnimatedElement>
         
@@ -34,7 +38,7 @@ const Hero: React.FC = () => {
         <AnimatedElement delay={400}>
           <a 
             href="#contact" 
-            className="btn text-lg px-8 py-4"
+            className="btn text-lg px-8 py-4 animate-cta-vibrate"
           >
             Vágjunk bele!
           </a>
