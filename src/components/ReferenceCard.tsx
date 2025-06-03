@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AnimatedElement from './AnimatedElement';
-import Gallery from 'react-photo-gallery';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import type { ReferenceImage } from '../data/references';
@@ -42,12 +41,10 @@ const ReferenceCard: React.FC<ReferenceCardProps> = ({
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const isVertical = videoUrl && getAspectClass(videoUrl) === 'aspect-[9/16]';
   const hasGallery = images && images.length > 1;
-  // react-photo-gallery expects {src, width, height, alt} for each image
-  const galleryPhotos = (images || []).map((img) => ({ src: img.src, width: 4, height: 3, alt: img.alt }));
   const lightboxSlides = (images || []).map((img) => ({ src: img.src, alt: img.alt, description: img.description }));
 
-  // Kattintásra lightbox nyílik, a megfelelő index-szel
-  const handleGalleryClick = (_event: any, { index }: { index: number }) => {
+  // Handle gallery image click
+  const handleGalleryClick = (index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
@@ -94,8 +91,21 @@ const ReferenceCard: React.FC<ReferenceCardProps> = ({
               <div className="mb-4 flex flex-col items-center">
                 {hasGallery ? (
                   <>
-                    <div className="gallery-no-anim">
-                      <Gallery photos={galleryPhotos} direction="row" onClick={handleGalleryClick} margin={6} />
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                      {images.map((img, idx) => (
+                        <div
+                          key={img.id || idx}
+                          className="aspect-[4/3] cursor-pointer overflow-hidden rounded-lg"
+                          onClick={() => handleGalleryClick(idx)}
+                        >
+                          <img
+                            src={img.src}
+                            alt={img.alt}
+                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
                     </div>
                     <Lightbox
                       open={lightboxOpen}
