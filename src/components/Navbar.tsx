@@ -13,6 +13,15 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isHomePage) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
+  };
+
   // Get the icon component dynamically
   const IconComponent = Camera; // For now, we'll use Camera as the default icon
   
@@ -97,6 +106,7 @@ const Navbar: React.FC = () => {
           <AnimatedElement className="flex items-center space-x-3">
             <Link 
               to="/"
+              onClick={handleLogoClick}
               className="flex items-center space-x-3 transition-all duration-300 hover:scale-105"
             >
               <div className={`${navbarLogoConfig.icon.type === 'image' ? 'p-0' : 'icon-container ' + (isScrolled ? 'bg-kiwi/20 hover:bg-kiwi/30' : (navbarLogoConfig.icon.backgroundColor || '') + ' ' + (navbarLogoConfig.icon.hoverBackgroundColor || ''))}`}>
