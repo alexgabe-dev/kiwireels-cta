@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import About from './sections/About';
@@ -10,30 +10,44 @@ import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Privacy from './pages/Privacy';
+import Admin from './pages/Admin';
+import ImageCarousel from './components/ImageCarousel';
+
+// Create a wrapper component to conditionally render the Navbar
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const isAdminPage = location.pathname === '/admin';
+
+  return (
+    <div className="font-poppins">
+      <ScrollProgress />
+      {!isAdminPage && <Navbar />}
+      <main>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <About />
+              <References />
+              <Packages />
+              <Contact />
+              <ImageCarousel />
+            </>
+          } />
+          <Route path="/adatvedelem" element={<Privacy />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </main>
+      {!isAdminPage && <ScrollToTopButton />}
+      {!isAdminPage && <Footer />}
+    </div>
+  );
+};
 
 function App() {
   return (
     <Router>
-      <div className="font-poppins">
-        <ScrollProgress />
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <About />
-                <References />
-                <Packages />
-                <Contact />
-              </>
-            } />
-            <Route path="/adatvedelem" element={<Privacy />} />
-          </Routes>
-        </main>
-        <ScrollToTopButton />
-        <Footer />
-      </div>
+      <AppContent />
     </Router>
   );
 }

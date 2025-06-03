@@ -1,11 +1,12 @@
 export interface LogoConfig {
   icon: {
     type: 'lucide' | 'image';
-    name?: string;  // Lucide icon name
-    size: number;
-    color?: string;
-    backgroundColor?: string;
-    hoverBackgroundColor?: string;
+    name?: string | null;  // Lucide icon name, lehet null
+    size?: number; // Opcionális size
+    color?: string | null; // Szín string (pl. hex, rgb), lehet null
+    backgroundColor?: string | null; // Szín string (pl. hex, rgb), lehet null
+    hoverBackgroundColor?: string | null; // Szín string (pl. hex, rgb), lehet null
+    showIcon?: boolean; // Logó ikon/kép megjelenítése
     image?: {
       src: string;
       alt: string;
@@ -14,17 +15,17 @@ export interface LogoConfig {
     };
   };
   text: {
-    showPrimary?: boolean;
-    showSecondary?: boolean;
+    showPrimary: boolean; // Szöveg megjelenítése, legyen kötelező boolean
+    showSecondary: boolean; // Szöveg megjelenítése, legyen kötelező boolean
     primary?: {
       text: string;
-      color: string;
+      color: string; // Itt még Tailwind class, ezt később változtatjuk
       fontSize: string;
       fontWeight: string;
     };
     secondary?: {
       text: string;
-      color: string;
+      color: string; // Itt még Tailwind class, ezt később változtatjuk
       fontSize: string;
       fontWeight: string;
     };
@@ -35,12 +36,13 @@ export interface LogoConfig {
 export const navbarLogoConfig: LogoConfig = {
   icon: {
     type: 'image',
-    size: 24,
+    size: 24, // Méretet megőrizzük
+    showIcon: true, // Alapértelmezett: mutasd az ikont
     image: {
       src: '/assets/kiwi-logo.png',
       alt: 'Kiwi Reels Logo',
-      width: 40,
-      height: 40
+      width: 40, // Méretek megőrzése
+      height: 40 // Méretek megőrzése
     }
   },
   text: {
@@ -48,13 +50,13 @@ export const navbarLogoConfig: LogoConfig = {
     showSecondary: true,
     primary: {
       text: 'Kiwi',
-      color: 'text-white',
+      color: 'text-white', // Use Tailwind color class
       fontSize: 'text-2xl',
       fontWeight: 'font-bold'
     },
     secondary: {
       text: 'Reels',
-      color: 'text-white/80',
+      color: 'text-gray-400', // Use Tailwind color class
       fontSize: 'text-sm',
       fontWeight: 'font-medium'
     }
@@ -65,12 +67,13 @@ export const navbarLogoConfig: LogoConfig = {
 export const footerLogoConfig: LogoConfig = {
   icon: {
     type: 'image',
-    size: 24,
+    size: 24, // Méretet megőrizzük
+    showIcon: true, // Alapértelmezett: mutasd az ikont
     image: {
       src: '/assets/kiwi-logo.png',
       alt: 'Kiwi Reels Logo',
-      width: 80,
-      height: 80
+      width: 80, // Méretek megőrzése
+      height: 80 // Méretek megőrzése
     }
   },
   text: {
@@ -78,13 +81,13 @@ export const footerLogoConfig: LogoConfig = {
     showSecondary: true,
     primary: {
       text: 'Kiwi',
-      color: 'text-white',
+      color: 'text-white', // Use Tailwind color class
       fontSize: 'text-xl',
       fontWeight: 'font-bold'
     },
     secondary: {
       text: 'Reels',
-      color: 'text-white/80',
+      color: 'text-gray-400', // Use Tailwind color class
       fontSize: 'text-xs',
       fontWeight: 'font-medium'
     }

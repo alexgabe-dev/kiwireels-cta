@@ -1,15 +1,18 @@
 import { Camera, Film, Mic, Image } from 'lucide-react';
 
 export interface PackageItem {
+  id?: string;
   name: string;
   price: string;
   description: string;
 }
 
 export interface PackageGroup {
+  id?: string;
   title: string;
   icon: any;
   items: PackageItem[];
+  sort_order?: number;
 }
 
 const packageGroups: PackageGroup[] = [

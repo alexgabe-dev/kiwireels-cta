@@ -55,9 +55,9 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
-      {/* Mobile View */}
-      <div className="lg:hidden space-y-8">
+    <div className="w-full max-w-6xl mx-auto px-4 pt-8 pb-8 lg:pb-4">
+      {/* Mobile and Tablet View - Default is visible, hidden on lg and above */}
+      <div className="space-y-8 lg:hidden"> {/* Removed lg:hidden for default visibility, kept for explicit hide */} 
         <div className="text-center space-y-4">
           <h2 className="section-title text-3xl font-bold text-white mb-4">Kapcsolat</h2>
           <h3 className="text-xl text-white/80">Vedd fel velünk a kapcsolatot</h3>
@@ -164,7 +164,7 @@ const ContactForm: React.FC = () => {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden lg:grid grid-cols-2 gap-12">
+      <div className="hidden lg:grid grid-cols-2 gap-12"> {/* Keep hidden lg:grid for desktop */}
         <div className="space-y-8">
           <div>
             <div className="text-center lg:text-left space-y-4">

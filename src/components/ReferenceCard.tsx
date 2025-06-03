@@ -9,21 +9,21 @@ interface ReferenceCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  videoUrl?: string;
+  videoUrl?: string | null;
   fullDescription: string;
   delay: number;
   className?: string;
   images?: ReferenceImage[];
 }
 
-function getAspectClass(videoUrl?: string) {
+function getAspectClass(videoUrl?: string | null) {
   if (!videoUrl) return 'aspect-video';
   if (videoUrl.match(/(shorts|tiktok|vertical|9-16)/i)) return 'aspect-[9/16]';
   if (videoUrl.match(/\.mp4$|\.webm$|\.ogg$/i)) return 'aspect-[9/16]';
   return 'aspect-video';
 }
 
-function isNativeVideo(url?: string) {
+function isNativeVideo(url?: string | null) {
   return !!url && url.match(/\.mp4$|\.webm$|\.ogg$/i);
 }
 

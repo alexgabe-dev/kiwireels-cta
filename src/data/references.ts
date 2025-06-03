@@ -1,14 +1,16 @@
 export interface ReferenceImage {
+  id?: string;
   src: string;
   alt: string;
-  description?: string;
+  description?: string | null;
 }
 
 export interface Reference {
+  id?: string;
   title: string;
   description: string;
   imageUrl: string;
-  videoUrl?: string;
+  videoUrl?: string | null;
   fullDescription: string;
   images?: ReferenceImage[];
 }
