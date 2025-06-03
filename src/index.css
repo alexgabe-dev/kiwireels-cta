@@ -109,13 +109,6 @@ body {
   @apply text-light-text bg-light-bg;
 }
 
-.hero-parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 @layer components {
   .btn {
     @apply relative bg-kiwi text-white font-semibold py-3 px-6 rounded-md transition-all duration-300 
