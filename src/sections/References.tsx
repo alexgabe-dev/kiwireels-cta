@@ -62,7 +62,8 @@ const References: React.FC = () => {
               imageUrl={reference.imageUrl}
               videoUrl={reference.videoUrl}
               fullDescription={reference.fullDescription}
-              delay={200 + (index * 100)}
+              delay={100 + (index * 100)}
+              images={reference.images}
             />
           ))}
         </div>

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import AnimatedElement from './AnimatedElement';
+import Gallery from 'react-photo-gallery';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
+import type { ReferenceImage } from '../data/references';
 
 interface ReferenceCardProps {
   title: string;
@@ -9,6 +13,7 @@ interface ReferenceCardProps {
   fullDescription: string;
   delay: number;
   className?: string;
+  images?: ReferenceImage[];
 }
 
 function getAspectClass(videoUrl?: string) {
@@ -30,10 +35,22 @@ const ReferenceCard: React.FC<ReferenceCardProps> = ({
   fullDescription,
   delay,
   className = '',
+  images,
 }) => {
   const [showModal, setShowModal] = useState(false);
-
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const isVertical = videoUrl && getAspectClass(videoUrl) === 'aspect-[9/16]';
+  const hasGallery = images && images.length > 1;
+  // react-photo-gallery expects {src, width, height, alt} for each image
+  const galleryPhotos = (images || []).map((img) => ({ src: img.src, width: 4, height: 3, alt: img.alt }));
+  const lightboxSlides = (images || []).map((img) => ({ src: img.src, alt: img.alt, description: img.description }));
+
+  // Kattintásra lightbox nyílik, a megfelelő index-szel
+  const handleGalleryClick = (_event: any, { index }: { index: number }) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <>
@@ -43,11 +60,16 @@ const ReferenceCard: React.FC<ReferenceCardProps> = ({
           onClick={() => setShowModal(true)}
         >
           <img 
-            src={imageUrl} 
-            alt={title} 
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            src={hasGallery ? images![0].src : imageUrl} 
+            alt={hasGallery ? images![0].alt : title} 
+            className="w-full h-full object-cover"
             loading="lazy"
           />
+          {hasGallery && (
+            <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded shadow">
+              +{images!.length} kép
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
             <h3 className="text-white font-bold text-lg">{title}</h3>
             <p className="text-white/90 text-sm">{description}</p>
@@ -70,7 +92,37 @@ const ReferenceCard: React.FC<ReferenceCardProps> = ({
                 </button>
               </div>
               <div className="mb-4 flex flex-col items-center">
-                {videoUrl ? (
+                {hasGallery ? (
+                  <>
+                    <div className="gallery-no-anim">
+                      <Gallery photos={galleryPhotos} direction="row" onClick={handleGalleryClick} margin={6} />
+                    </div>
+                    <Lightbox
+                      open={lightboxOpen}
+                      close={() => setLightboxOpen(false)}
+                      slides={lightboxSlides}
+                      index={lightboxIndex}
+                      animation={{ fade: 0, swipe: 250 }}
+                      render={{
+                        slide: ({ slide }) => {
+                          const s = slide as any;
+                          return (
+                            <div style={{ textAlign: 'center' }}>
+                              <img
+                                src={s.src}
+                                alt={s.alt}
+                                style={{ maxHeight: '70vh', maxWidth: '100%', margin: '0 auto' }}
+                              />
+                              {s.description && (
+                                <div style={{ color: '#fff', marginTop: 12, fontSize: 16 }}>{s.description}</div>
+                              )}
+                            </div>
+                          );
+                        }
+                      }}
+                    />
+                  </>
+                ) : videoUrl ? (
                   isNativeVideo(videoUrl) ? (
                     <div className={getAspectClass(videoUrl) + ' flex items-center justify-center max-h-[60vh] w-full'}>
                       <video

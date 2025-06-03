@@ -131,6 +131,9 @@ body {
            after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2
            after:w-24 after:h-1 after:bg-gradient-to-r after:from-kiwi-light after:to-kiwi;
   }
+  .section-title-left {
+    @apply lg:after:left-0 lg:after:translate-x-0;
+  }
   
   .card {
     @apply relative bg-light-card rounded-lg shadow-md overflow-hidden transition-all duration-300
@@ -296,4 +299,9 @@ body {
 
 .reference-card-animate {
   animation: card-fade-in-up 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-no-anim img {
+  transition: none !important;
+  transform: none !important;
 }

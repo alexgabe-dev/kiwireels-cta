@@ -20,7 +20,8 @@ const About: React.FC = () => {
                   <Users size={20} />
                 </div>
                 <p className="text-lg leading-relaxed">
-                  A <span className="font-semibold text-gradient">Kiwi Reels</span> egy szenvedélyes és dinamikus kreatív stúdió. Hiszünk abban, hogy a jól megkomponált videós és fotós tartalom képes átalakítani a céges kommunikációt, és valódi hatást gyakorolni a célközönségre.
+                <p>A <span className="font-semibold text-kiwi">Kiwi Reels</span> egy kreatív tartalomgyártó csapat, akik hisznek abban, hogy egy jó történet vizuálisan mesélve a legerősebb. Modern videókkal és fotókkal segítünk márkáknak kitűnni és emlékezetessé válni.
+                </p>
                 </p>
               </div>
               
@@ -29,7 +30,7 @@ const About: React.FC = () => {
                   <Heart size={20} />
                 </div>
                 <p className="text-lg leading-relaxed">
-                  Legyen szó <span className="font-semibold">social media kampányról</span>, <span className="font-semibold">imázsfilmről</span> vagy <span className="font-semibold">rendezvénydokumentációról</span>, nálunk megtalálod a megoldást.
+                  Legyen szó <span className="font-semibold">social media kampányról</span>, <span className="font-semibold">imázsfilmről</span> vagy <span className="font-semibold">rendezvényvideókról</span>, nálunk megtalálod a megoldást.
                 </p>
               </div>
               
